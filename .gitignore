@@ -1,0 +1,139 @@
+# ClaudeGTM .gitignore
+# Protect client data and sensitive information
+
+# ==========================================
+# CLIENT DATA - NEVER COMMIT
+# ==========================================
+
+# Client-specific engagement folders (if they contain sensitive data)
+# Uncomment if you want to keep client work local only:
+# engagements/active/*/
+# engagements/completed/*/
+
+# Client exports and data files
+*.csv
+*.xlsx
+*.xls
+*-export.json
+*-client-data.*
+
+# Clay table exports with client data
+*-client-*.json
+clay-exports/
+
+# Client credentials and API keys
+*credentials*.json
+*.env
+.env.*
+*apikey*
+*api-key*
+
+# ==========================================
+# SENSITIVE INTELLIGENCE
+# ==========================================
+
+# If you want to keep some intelligence private:
+# intelligence/private/
+# proprietary-patterns/
+
+# ==========================================
+# DEVELOPMENT
+# ==========================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Node.js (if you build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ==========================================
+# INFRASTRUCTURE & TOOLS
+# ==========================================
+
+# Database files (if you build tracking tools)
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# ==========================================
+# SYSTEM FILES
+# ==========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ==========================================
+# OPTIONAL: ENGAGEMENT DATA
+# ==========================================
+
+# Uncomment these if you want more aggressive client data protection:
+
+# All active engagement folders
+# engagements/active/
+
+# All completed engagement folders
+# engagements/completed/
+
+# Keep only templates
+# !engagements/templates/
+
+# ==========================================
+# NOTES
+# ==========================================
+
+# This .gitignore is configured to:
+# 1. Protect client data (CSV, exports, credentials)
+# 2. Protect sensitive API keys and credentials
+# 3. Ignore standard development artifacts
+# 4. Allow intelligence layer to be committed (sanitized)
+# 5. Allow templates and documentation
+
+# Adjust based on whether you want to:
+# - Keep intelligence private (uncomment intelligence exclusions)
+# - Keep all client work local (uncomment engagement exclusions)
+# - Share templates publicly (keep templates included)
