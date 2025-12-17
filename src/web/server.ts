@@ -10,7 +10,8 @@ import { OctaveOrchestrator } from '../modules/octave-orchestrator';
 import { AnalysisConfig, PlaybookConfig, PlaybookType } from '../types';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT || '3000', 10);
+const HOST = '0.0.0.0';
 
 // Middleware
 app.use(cors());
@@ -310,11 +311,12 @@ app.get('*', (req: Request, res: Response) => {
 /**
  * Start server
  */
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log('\n' + '='.repeat(60));
   console.log('🚀 GTM Context Engine - Web Interface');
   console.log('='.repeat(60));
   console.log(`\n📍 Server running at: http://localhost:${PORT}`);
+  console.log(`📍 Also accessible at: http://${HOST}:${PORT}`);
   console.log(`\n💡 Open your browser and navigate to the URL above\n`);
   console.log('='.repeat(60) + '\n');
 });
