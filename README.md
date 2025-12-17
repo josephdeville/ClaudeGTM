@@ -44,6 +44,11 @@ Input a company domain + playbook type + target focus → Get a tactical sales p
 
 ## Quick Start
 
+### Two Ways to Use
+
+**1. Web Interface (Easiest)** - Beautiful UI with real-time progress tracking
+**2. CLI** - Command-line interface for automation and scripting
+
 ### Prerequisites
 
 - Node.js 18+ and npm/yarn
@@ -70,7 +75,23 @@ cp .env.example .env
 # Edit .env and add your API key
 ```
 
-### Basic Usage
+### Web Interface (Recommended for First-Time Users)
+
+```bash
+# Start the web server
+npm run web
+
+# Open your browser to http://localhost:3000
+```
+
+**Features:**
+- 🎨 Beautiful, modern UI
+- 📊 Real-time progress tracking
+- 📥 Instant playbook preview
+- ⬇️ One-click download
+- 🔄 No command-line knowledge needed
+
+### CLI Usage
 
 ```bash
 # Strategic GTM Analysis
@@ -87,6 +108,48 @@ npm run dev playbook salesforce.com -- -t sector -f "Healthcare SaaS" --verbose
 node dist/cli.js analyze salesforce.com --industry healthcare
 node dist/cli.js playbook asana.com -t competitive -f "Displacing Monday.com"
 ```
+
+## Web Interface
+
+### Starting the Web Server
+
+```bash
+npm run web
+```
+
+Then open your browser to **http://localhost:3000**
+
+### Features
+
+- **Dual Mode Interface**: Switch between Strategic GTM Analysis and Octave Playbooks
+- **Real-Time Progress**: See live updates as your playbook generates
+- **Instant Preview**: View your playbook immediately in beautiful markdown
+- **One-Click Download**: Download your playbook as a markdown file
+- **Form Validation**: Helpful tips and examples for each field
+- **Responsive Design**: Works on desktop, tablet, and mobile
+
+### Using the Web Interface
+
+1. **Choose Your Mode**: Select either "Strategic GTM Analysis" or "Octave Playbook"
+
+2. **Fill in the Form**:
+   - **Analyze**: Enter company domain, optional industry/competitor focus
+   - **Playbook**: Enter domain, select playbook type, describe target focus
+
+3. **Generate**: Click the generate button
+
+4. **Watch Progress**: See real-time updates as research and analysis happens
+
+5. **Review & Download**: Preview your playbook and download it
+
+### Screenshots
+
+**Main Interface:**
+- Mode selector (Analyze vs Playbook)
+- Smart forms with inline help
+- Progress bar with status messages
+- Full playbook preview
+- Download button
 
 ## CLI Commands
 
