@@ -4,9 +4,10 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import * as path from 'path';
 import { GTMOrchestrator } from './modules/orchestrator';
+import { OctaveOrchestrator } from './modules/octave-orchestrator';
 import { logger, LogLevel } from './utils/logger';
 import { config } from './utils/config';
-import { AnalysisConfig } from './types';
+import { AnalysisConfig, PlaybookConfig, PlaybookType } from './types';
 
 const program = new Command();
 
@@ -86,6 +87,78 @@ program
   });
 
 program
+  .command('playbook')
+  .description('Generate Octave-style sales playbook')
+  .argument('<domain>', 'Company domain (e.g., stripe.com)')
+  .requiredOption('-t, --type <type>', 'Playbook type: practitioner, sector, milestone, competitive, or account')
+  .requiredOption('-f, --focus <focus>', 'Target focus (e.g., "RevOps teams needing technical execution")')
+  .option('--format <format>', 'Output format: markdown or json', 'markdown')
+  .option('-m, --model <model>', 'AI model to use', config.anthropicModel)
+  .option('-v, --verbose', 'Verbose logging')
+  .action(async (domain: string, options: any) => {
+    try {
+      // Set log level
+      if (options.verbose) {
+        logger.setLevel(LogLevel.DEBUG);
+      }
+
+      // Validate playbook type
+      const validTypes: PlaybookType[] = ['practitioner', 'sector', 'milestone', 'competitive', 'account'];
+      if (!validTypes.includes(options.type as PlaybookType)) {
+        console.error(chalk.red(`\nInvalid playbook type: ${options.type}`));
+        console.log(chalk.yellow(`Valid types: ${validTypes.join(', ')}\n`));
+        process.exit(1);
+      }
+
+      // Display header
+      console.log(chalk.bold.cyan('\n╔═══════════════════════════════════════════════════════╗'));
+      console.log(chalk.bold.cyan('║        Octave-Style Playbook Generator                ║'));
+      console.log(chalk.bold.cyan('║        Powered by Claude AI                           ║'));
+      console.log(chalk.bold.cyan('╚═══════════════════════════════════════════════════════╝\n'));
+
+      logger.info(`Target Domain: ${chalk.bold(domain)}`);
+      logger.info(`Playbook Type: ${chalk.bold(options.type)}`);
+      logger.info(`Target Focus: ${chalk.bold(options.focus)}`);
+      logger.info(`Output Format: ${chalk.bold(options.format)}`);
+      logger.info(`AI Model: ${chalk.bold(options.model)}\n`);
+
+      // Create playbook config
+      const playbookConfig: PlaybookConfig = {
+        domain,
+        playbook_type: options.type as PlaybookType,
+        target_focus: options.focus,
+        output_format: options.format,
+        model: options.model,
+      };
+
+      // Execute orchestrator
+      const orchestrator = new OctaveOrchestrator(playbookConfig);
+      const { playbook, outputPath } = await orchestrator.execute();
+
+      // Display summary
+      console.log(chalk.bold.green('\n✓ Octave Playbook Generated Successfully!\n'));
+      console.log(chalk.cyan('Summary:'));
+      console.log(`  Playbook: ${playbook.playbook_title}`);
+      console.log(`  Type: ${playbook.playbook_type}`);
+      console.log(`  Personas: ${playbook.value_propositions_by_persona.length}`);
+      console.log(`  Qualifying Questions: ${playbook.qualifying_questions.length}`);
+      console.log(`  Key Insights: ${playbook.key_insights.length}`);
+      console.log(`\n  Output File: ${chalk.bold(outputPath)}\n`);
+
+      // Display next steps
+      console.log(chalk.bold.yellow('Next Steps:'));
+      console.log(`  1. Review the playbook: ${chalk.cyan(`cat ${outputPath}`)}`);
+      console.log(`  2. Train your sales team on the messaging`);
+      console.log(`  3. Use qualifying questions in discovery calls`);
+      console.log(`  4. Customize outreach sequences for your brand\n`);
+
+    } catch (error: any) {
+      logger.error('Failed to generate playbook', error);
+      process.exit(1);
+    }
+  });
+
+program
   .command('init')
   .description('Initialize GTM engine configuration')
   .action(() => {
@@ -110,9 +183,16 @@ program
     console.log(chalk.cyan('   export ANTHROPIC_MODEL="claude-opus-4-5-20251101"'));
 
     console.log(chalk.yellow('\n\nExample Usage:'));
+    console.log(chalk.bold('\nStrategic GTM Analysis:'));
     console.log(chalk.cyan('   gtm analyze stripe.com'));
     console.log(chalk.cyan('   gtm analyze notion.so --format markdown'));
-    console.log(chalk.cyan('   gtm analyze salesforce.com --industry healthcare --verbose\n'));
+    console.log(chalk.cyan('   gtm analyze salesforce.com --industry healthcare --verbose'));
+
+    console.log(chalk.bold('\nOctave-Style Sales Playbooks:'));
+    console.log(chalk.cyan('   gtm playbook stripe.com -t practitioner -f "RevOps teams needing technical execution"'));
+    console.log(chalk.cyan('   gtm playbook notion.so -t sector -f "Education technology companies"'));
+    console.log(chalk.cyan('   gtm playbook asana.com -t competitive -f "Displacing Monday.com"'));
+    console.log(chalk.cyan('   gtm playbook zoom.us -t milestone -f "Companies that just raised Series B"\n'));
 
     console.log(chalk.green('✓ Setup instructions displayed\n'));
   });

@@ -11,7 +11,12 @@
 
 The GTM Context Engine is an intelligent platform that analyzes company domains and automatically generates battle-tested GTM playbooks. Inspired by enterprise sales intelligence platforms like Octave HQ, it combines AI-powered research with proven sales frameworks to deliver actionable strategies.
 
-### What It Does
+**Two Powerful Modes:**
+
+1. **Strategic GTM Analysis** (`gtm analyze`) - Comprehensive 10-section company-wide strategy
+2. **Octave Playbooks** (`gtm playbook`) - Focused, tactical sales playbooks for specific segments
+
+### Strategic GTM Analysis
 
 Input a company domain → Get a complete GTM playbook including:
 
@@ -24,6 +29,18 @@ Input a company domain → Get a complete GTM playbook including:
 - **Qualification Framework** - Scoring criteria for lead qualification
 - **Outbound Motion** - Strategic plays with triggers and conversion expectations
 - **Implementation Roadmap** - Week-by-week rollout plan
+
+### Octave-Style Sales Playbooks
+
+Input a company domain + playbook type + target focus → Get a tactical sales playbook including:
+
+- **Core Strategy** - WHO this segment is, what challenges they face, why conventional solutions fail
+- **Key Insights** - 5 deep insights showing genuine understanding
+- **Approach Angle** - How to engage (lead with, position as, address, make it about)
+- **Named Value Props** - Memorable pain names by persona (e.g., "Attribution Reportability Crisis")
+- **Qualifying Questions** - 8 questions to reveal if prospect fits segment
+- **Key Messaging** - Core message + persona-specific messaging
+- **Outreach Sequences** - Ready-to-use email (3-touch), LinkedIn, and cold call scripts
 
 ## Quick Start
 
@@ -56,21 +73,28 @@ cp .env.example .env
 ### Basic Usage
 
 ```bash
-# Analyze a company
-npm run analyze stripe.com
+# Strategic GTM Analysis
+npm run dev analyze stripe.com
+
+# Octave-Style Playbook
+npm run dev playbook stripe.com -- -t practitioner -f "RevOps teams needing technical execution"
 
 # With options
-npm run analyze notion.so -- --format markdown --verbose
+npm run dev analyze notion.so -- --format markdown --verbose
+npm run dev playbook salesforce.com -- -t sector -f "Healthcare SaaS" --verbose
 
-# Using the CLI directly
+# Using the CLI directly after build
 node dist/cli.js analyze salesforce.com --industry healthcare
+node dist/cli.js playbook asana.com -t competitive -f "Displacing Monday.com"
 ```
 
 ## CLI Commands
 
-### `gtm analyze <domain>`
+The GTM Context Engine provides two powerful commands:
 
-Generate a complete GTM playbook for a company domain.
+### `gtm analyze <domain>` - Strategic GTM Analysis
+
+Generate a comprehensive 10-section GTM strategy playbook for a company domain.
 
 **Arguments:**
 - `<domain>` - Company domain (e.g., stripe.com, notion.so)
@@ -101,6 +125,60 @@ gtm analyze asana.com --competitor monday.com
 # Use more powerful model for complex analysis
 gtm analyze oracle.com --model claude-opus-4-5-20251101 --verbose
 ```
+
+### `gtm playbook <domain>` - Octave-Style Sales Playbooks
+
+Generate focused, tactical sales playbooks using Octave HQ's proven methodology.
+
+**Arguments:**
+- `<domain>` - Company domain (e.g., stripe.com, notion.so)
+
+**Required Options:**
+- `-t, --type <type>` - Playbook type: `practitioner`, `sector`, `milestone`, `competitive`, or `account`
+- `-f, --focus <focus>` - Target focus description (e.g., "RevOps teams needing technical execution")
+
+**Optional:**
+- `--format <format>` - Output format: `markdown` or `json` (default: markdown)
+- `-m, --model <model>` - AI model to use (default: claude-sonnet-4-5-20250929)
+- `-v, --verbose` - Enable verbose logging
+
+**Playbook Types:**
+
+1. **Practitioner** - Target specific roles/personas
+   ```bash
+   gtm playbook stripe.com -t practitioner -f "RevOps teams struggling with attribution"
+   ```
+
+2. **Sector** - Target specific industries
+   ```bash
+   gtm playbook salesforce.com -t sector -f "Healthcare technology companies"
+   ```
+
+3. **Milestone** - Target companies hitting specific triggers
+   ```bash
+   gtm playbook asana.com -t milestone -f "Companies that just raised Series B"
+   ```
+
+4. **Competitive** - Position against specific competitors
+   ```bash
+   gtm playbook notion.so -t competitive -f "Displacing Confluence and wikis"
+   ```
+
+5. **Account** - Hyper-specific for named accounts
+   ```bash
+   gtm playbook zoom.us -t account -f "Zoom Video Communications"
+   ```
+
+**What You Get:**
+
+Octave-style playbooks include:
+- **Core Strategy** - Description, executive summary, and 4 strategic paragraphs
+- **Key Insights** - 5 deep insights demonstrating understanding
+- **Approach Angle** - Tactical engagement strategy (lead with, position as, address, make it about)
+- **Named Value Props** - Memorable pain names by persona (e.g., "The Hybrid Hiring Trap")
+- **Qualifying Questions** - 8 discovery questions
+- **Key Messaging** - Core message + persona-specific messaging
+- **Outreach Sequences** - Email (3-touch), LinkedIn, and cold call scripts
 
 ### `gtm init`
 
@@ -430,22 +508,47 @@ MIT License - see [LICENSE](LICENSE) file for details
 - Inspired by enterprise GTM platforms like Octave HQ
 - Based on proven B2B sales frameworks (MEDDIC, SPICED, BANT)
 
-## Example Companies to Try
+## Example Commands
+
+### Strategic GTM Analysis
 
 ```bash
-# SaaS Companies
+# Basic company analysis
 gtm analyze stripe.com
 gtm analyze notion.so
 gtm analyze figma.com
-gtm analyze slack.com
 
-# With industry focus
+# Industry-focused
 gtm analyze salesforce.com --industry healthcare
 gtm analyze hubspot.com --industry manufacturing
 
-# With competitive focus
+# Competitive positioning
 gtm analyze asana.com --competitor monday.com
 gtm analyze zoom.us --competitor webex.com
+```
+
+### Octave-Style Playbooks
+
+```bash
+# Practitioner playbooks
+gtm playbook stripe.com -t practitioner -f "RevOps teams struggling with attribution"
+gtm playbook gong.io -t practitioner -f "VP Sales needing conversation intelligence"
+
+# Sector playbooks
+gtm playbook salesforce.com -t sector -f "Healthcare technology companies"
+gtm playbook stripe.com -t sector -f "B2B SaaS companies processing payments"
+
+# Milestone playbooks
+gtm playbook notion.so -t milestone -f "Companies that just raised Series B"
+gtm playbook figma.com -t milestone -f "Teams scaling from 50 to 200 employees"
+
+# Competitive playbooks
+gtm playbook asana.com -t competitive -f "Displacing Monday.com in mid-market"
+gtm playbook notion.so -t competitive -f "Replacing Confluence and traditional wikis"
+
+# Account playbooks
+gtm playbook zoom.us -t account -f "Zoom Video Communications"
+gtm playbook stripe.com -t account -f "Stripe Inc"
 ```
 
 ---
