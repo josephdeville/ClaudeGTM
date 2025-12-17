@@ -70,6 +70,41 @@ cp .env.example .env
 # Edit .env and add your API key
 ```
 
+### Web Interface
+
+The GTM Context Engine includes a modern web interface for easy access:
+
+```bash
+# Install web dependencies and start development servers
+npm run dev:web
+
+# Or start them separately:
+# Terminal 1: Backend API server
+npm run dev:server
+
+# Terminal 2: Frontend (from web directory)
+cd web && npm install && npm run dev
+```
+
+Then open `http://localhost:5173` in your browser.
+
+For production:
+
+```bash
+# Build everything
+npm run build:web
+
+# Start the production server
+npm run start:web
+```
+
+The web interface provides:
+- Easy-to-use forms for both analysis types
+- Real-time progress updates
+- Results visualization
+- JSON download capability
+- Modern, responsive design
+
 ### Basic Usage
 
 ```bash
