@@ -6,6 +6,8 @@ yarn.lock
 # Build outputs
 dist/
 build/
+web/dist/
+web/node_modules/
 *.tsbuildinfo
 
 # Environment variables
