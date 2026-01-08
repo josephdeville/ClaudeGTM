@@ -14,6 +14,18 @@
 ```
 **Contents:** Complete milestone playbook including company analysis, Cole Jeffery profile, 5 named value propositions, competitive intelligence, 90-day solution architecture, discovery call script, objection handling
 
+### **ICP, Tiers & Velocity Framework (NEW - 40+ pages)**
+```
+/home/user/ClaudeGTM/output-contacts/CIN7-ICP-TIERS-VELOCITY-FRAMEWORK.md
+```
+**Contents:**
+- **3-Tier ICP Definition:** Omni (Tier 1), Core (Tier 2), Foresight AI (Tier 3)
+- **Qualification Frameworks:** Must-have vs. nice-to-have criteria for each tier
+- **Behavioral Triggers:** Signal-based activation (not time-based blasts)
+- **Velocity Metrics:** Response rates, sales cycle length, attribution tracking by tier
+- **Implementation Risk Scoring:** Tech stack complexity, SKU count, warehouse operations
+- **90-Day Roadmap:** Week-by-week velocity implementation plan
+
 ### **Outreach Sequences (Execution-Ready)**
 ```
 /home/user/ClaudeGTM/output-contacts/CIN7-COLE-JEFFERY-OUTREACH-READY.md
