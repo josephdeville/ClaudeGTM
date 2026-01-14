@@ -249,6 +249,7 @@ npm run build
 **Documentation:**
 - `/home/user/GTM-ENGINE-EXPORT/README.md` - Complete setup guide
 - `/home/user/GTM-ENGINE-EXPORT/COPY-INSTRUCTIONS.md` - File manifest & copy instructions
+- `/home/user/GTM-ENGINE-EXPORT/DEPLOYMENT-GUIDE.md` - **NEW** - Cloud deployment guide (Railway, Heroku, AWS Lambda, Docker, Vercel)
 
 ---
 
